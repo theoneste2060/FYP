@@ -36,8 +36,8 @@
                                                             <div class="mb-3">
                                                                 <label for="username" class="form-label">First Name</label>
                                                                 <input class="form-control" type="text" id="username"
-                                                                    name="name" value="{{ old('name') }}" required
-                                                                    autofocus autocomplete="name" placeholder="First Name">
+                                                                    name="name" value="{{ old('name') }}" required 
+                                                                    autofocus autocomplete="name" placeholder="First Name" pattern="[a-zA-Z]+$">
                                                                 @error('name')
                                                                     <span class="text-danger">{{ $message }}</span>
                                                                 @enderror
@@ -47,7 +47,7 @@
                                                                 <label for="username" class="form-label">Last Name</label>
                                                                 <input class="form-control" type="text" id="username"
                                                                     name="lname" value="{{ old('lname') }}" required
-                                                                    autofocus autocomplete="name" placeholder="Last Name">
+                                                                    autofocus autocomplete="name" placeholder="Last Name" pattern="[a-zA-Z]+$">
                                                                 @error('lname')
                                                                     <span class="text-danger">{{ $message }}</span>
                                                                 @enderror
@@ -66,10 +66,12 @@
                                                             </div>
 
                                                             <div class="mb-3">
-                                                                <label for="password" class="form-label">Password</label>
-                                                                <input class="form-control" type="password" name="password"
-                                                                    required autocomplete="new-password"
-                                                                    placeholder="Password">
+                                                            <label for="password" class="form-label">Password</label>
+                                                               <input class="form-control" type="password" name="password"
+                                                                      required
+                                                                      minlength="8"
+                                                                      pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}$"
+                                                                      placeholder="Password">
                                                                 @error('password')
                                                                     <span class="text-danger">{{ $message }}</span>
                                                                 @enderror
@@ -80,7 +82,7 @@
                                                                 <select class="form-select" name="role" required
                                                                     autocomplete="role">
                                                                     <option value="user">Farmer</option>
-                                                                    <option value="admin">Admin</option>
+                                                                    <!-- <option value="admin">Admin</option> -->
                                                                     <option value="agronomist">Agronomist</option>
                                                                 </select>
                                                                 @error('role')
@@ -106,7 +108,7 @@
                                 @if (count($users) == 0)
                                     <div class="alert alert-info">
                                         <strong>Info </strong>
-                                        <span>No school data found</span>
+                                        <span>No  data found</span>
                                     </div>
                                 @else
                                     <div class="tab-pane show active" id="buttons-table-preview">
@@ -138,7 +140,8 @@
                                             <td>{{ $user->email }}</td>
                                             <td>{{ $user->role }}</td>
                                             <td>{{ $user->created_at->diffForHumans() }}</td>
-                                            @if (auth()->user()->role === 'Admin')
+                                            <!-- @if (auth()->user()->role === 'Admin') -->
+                                            
                                             <td>
                                                 <button type="button" class="btn btn-small btn-info" data-bs-toggle="modal"
                                                     data-bs-target="#editModal{{ $user->id }}">
@@ -152,8 +155,6 @@
                                                 <form action="{{ route('destroy-user', $user->id) }}" method="post">
                                                     @csrf
                                                     @method('delete')
-
-
                                                     <!-- Delete Confirmation Modal -->
                                                     <div class="modal fade" id="danger-header-modal-{{ $user->id }}"
                                                         tabindex="-1" role="dialog"
@@ -185,6 +186,7 @@
 
                                             </td>
                                         </tr>
+                                       
 
                                         <!-- Edit Modal -->
                                         <div class="modal fade" id="editModal{{ $user->id }}" tabindex="-1"
@@ -270,8 +272,10 @@
                                         @endif
                                     @endforeach
                                 </tbody>
+                                
                                 </table>
                                 @endif
+                                
                             </div> <!-- end preview-->
                         </div> <!-- end tab-content-->
                     </div> <!-- end card body-->
