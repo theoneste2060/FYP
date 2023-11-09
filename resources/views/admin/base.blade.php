@@ -230,6 +230,19 @@
                     <i class="uil-video"></i>
                     <span> Share Experience </span>
                 </a>
+            </li><li class="side-nav-item">
+                <a class="side-nav-link" href="#">
+                <!-- {{ route('add_video') }} -->
+                    <i class="uil-user"></i>
+                    <span>farmers group</span>
+                  <select class="form-select" > 
+                            <option value=""></option>
+                            <option value="maise">Maise</option>
+                            <option value="beans">Beans</option>
+                            <option value="cassava">Cassava</option>
+                            <option value="vegetables">Vegetables</option>
+                    </select>
+                </a>
             </li>
             <li class="side-nav-item">
                 <a class="side-nav-link" href="{{route('video')}}">
